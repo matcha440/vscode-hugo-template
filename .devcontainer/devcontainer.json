@@ -2,12 +2,9 @@
 	"name": "Markdown Editing",
 	"dockerFile": "Dockerfile",
 
-	"build": {
-		"args": {
-			"HUGO_VERSION": "0.71.1",
-			"PROCESS_ARCH": "Linux-64bit"
-		}
-	},
+	// "containerEnv": {
+	// 	"HUGO_VERSION": "latest"
+	// },
 
 	// Use 'settings' to set *default* container specific settings.json values on container create. 
 	// You can edit these settings after create using File > Preferences > Settings > Remote.
@@ -22,7 +19,7 @@
 	"containerUser": "vscode",
 
 	// Uncomment the next line to run commands after the container is created.
-	// "postCreateCommand": "scripts/install-hugo.sh",
+	"postCreateCommand": "scripts/install-hugo.sh",
 
 	// Uncomment the next line to use a non-root user. On Linux, this will prevent
 	// new files getting created as root, but you may need to update the USER_UID

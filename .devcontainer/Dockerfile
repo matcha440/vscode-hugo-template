@@ -10,14 +10,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
-ARG HUGO_VERSION
-ARG PROCESS_ARCH
 
 # Configure apt and install packages
 RUN apt-get update \
     #
     # Configure apt
-    && apt-get -y install --no-install-recommends apt-utils dialog wget 2>&1 \
+    && apt-get -y install --no-install-recommends apt-utils dialog wget curl 2>&1 \
     #
     # Verify git and needed tools are installed
     && apt-get -y install git iproute2 procps lsb-release \
@@ -34,14 +32,6 @@ RUN apt-get update \
     && apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
-
-# Download and install hugo
-RUN cd /tmp \
-    && wget https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/hugo_"$HUGO_VERSION"_"$PROCESS_ARCH".deb \
-    && wget https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/hugo_"$HUGO_VERSION"_checksums.txt \
-    && grep " hugo_${HUGO_VERSION}_${PROCESS_ARCH}.deb\$" hugo_${HUGO_VERSION}_checksums.txt | sha256sum -c - \
-    && dpkg -i hugo_"$HUGO_VERSION"_"$PROCESS_ARCH".deb \
-    && rm /tmp/hugo*
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog
