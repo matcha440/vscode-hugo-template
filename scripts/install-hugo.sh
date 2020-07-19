@@ -7,7 +7,7 @@ else
 fi
 HUGO_INSTALL_FILE="/tmp/hugo.deb"
 DOWNLOAD_URL=$(curl -s $API_ENDPOINT \
-| grep "browser_download_url.*hugo_[^extended].*_Linux-64bit\.deb" \
+| grep "browser_download_url.*hugo_extended.*_Linux-64bit\.deb" \
 | cut -d ":" -f 2,3 \
 | tr -d \")
 if [ -z $DOWNLOAD_URL ] ;then
