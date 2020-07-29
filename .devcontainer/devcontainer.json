@@ -1,25 +1,31 @@
 {
-	"name": "Markdown Editing",
-	"dockerFile": "Dockerfile",
-
-	// "containerEnv": {
-	// 	"HUGO_VERSION": "latest"
-	// },
-
-	// Use 'settings' to set *default* container specific settings.json values on container create. 
-	// You can edit these settings after create using File > Preferences > Settings > Remote.
-	"settings": { 
-		"terminal.integrated.shell.linux": "/bin/bash"
+	"name": "Hugo",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			// Update VARIANT to pick hugo variant.
+			// Example variants: hugo, hugo_extended
+			// Rebuild the container if it already exists to update.
+			"VARIANT": "hugo",
+			// Update VERSION to pick a specific hugo version.
+			// Example versions: latest, 0.73.0, 0,71.1
+			// Rebuild the container if it already exists to update.
+			"VERSION": "latest",
+		}
+	},
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"terminal.integrated.shell.linux": "/bin/zsh"
 	},
 
 	// Use 'appPort' to create a container with published ports. If the port isn't working, be sure
 	// your server accepts connections from all interfaces (0.0.0.0 or '*'), not just localhost.
-	"appPort": [1313],
+	"forwardPorts": [1313],
 
-	"containerUser": "vscode",
+	"remoteUser": "vscode",
 
 	// Uncomment the next line to run commands after the container is created.
-	"postCreateCommand": "scripts/install-hugo.sh",
+	// "postCreateCommand": "scripts/install-hugo.sh",
 
 	// Uncomment the next line to use a non-root user. On Linux, this will prevent
 	// new files getting created as root, but you may need to update the USER_UID
@@ -28,11 +34,9 @@
 
 	// Add the IDs of extensions you want installed when the container is created in the array below.
 	"extensions": [
-		"rusnasonov.vscode-hugo",
 		"yzhang.markdown-all-in-one",
 		"streetsidesoftware.code-spell-checker",
 		"DavidAnson.vscode-markdownlint",
-		"shd101wyy.markdown-preview-enhanced",
-		"be5invis.toml"
+		"shd101wyy.markdown-preview-enhanced"
 	]
 }
